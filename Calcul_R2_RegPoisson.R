@@ -41,6 +41,7 @@ regressorB = glm(formula = occurrence ~
 summary(regressorB)
 
 # Calculation R2
+# avec le nombre d'ALD-MDS
 y_pred = predict(regressorB, newdata = test_set, type = "response")
 SSE <- sum((test_set$occurrence - y_pred)^2); SSE
 SST <- sum((test_set$occurrence - mean(test_set$occurrence))^2); SST
@@ -49,6 +50,17 @@ SST <- sum((test_set$occurrence - mean(test_set$occurrence))^2); SST
 y_pred = predict(regressorB, newdata = training_set, type = "response")
 SSE <- sum((training_set$occurrence - y_pred)^2); SSE
 SST <- sum((training_set$occurrence - mean(training_set$occurrence))^2); SST
+1-SSE/SST 
+
+# avec le taux d'ALD-MDS
+y_pred = predict(regressorB, newdata = test_set, type = "response")
+SSE <- sum((test_set$occurrence/test_set$Population - y_pred/test_set$Population)^2); SSE
+SST <- sum((test_set$occurrence/test_set$Population - mean(test_set$occurrence/test_set$Population))^2); SST
+1-SSE/SST 
+
+y_pred = predict(regressorB, newdata = training_set, type = "response")
+SSE <- sum((training_set$occurrence/training_set$Population - y_pred/training_set$Population)^2); SSE
+SST <- sum((training_set$occurrence/training_set$Population - mean(training_set$occurrence/training_set$Population))^2); SST
 1-SSE/SST 
 
 
